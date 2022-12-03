@@ -74,8 +74,7 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
         ("statvalues", "Change stats for an AppId. Separate stat values by a comma. Use with statnames to name the values in order", cxxopts::value<std::vector<std::string>>())
         ("p,launch_achievements", "Launch SamRewritten GUI and immediately switch to achievements page for the app.") // This is used by the GUI for launching in a new window
         ("nostats", "Do not display stats")
-        ("timestamps", "Display timestamps on time related information")
-        ("launch", "Actually just launch the app.");
+        ("timestamps", "Display timestamps on time related information");
 
     options.parse_positional({"app"});
 
@@ -92,18 +91,6 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
     if (result.count("app") > 0)
     {
         app = result["app"].as<AppId_t>();
-    }
-    
-    if (result.count("launch_achievements") > 0)
-    {
-        if (app == 0)
-        {
-            std::cout << "Please provide an AppId argument before launching achievements page." << std::endl;
-            return true;
-        }
-
-        *return_app_id = app;
-        return false;
     }
 
     if (result.count("apps") > 0)
@@ -444,19 +431,6 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
         }
 
         g_steam->quit_game();
-        return true;
-    }
-
-    if (result.count("launch") > 0)
-    {
-        if (app == 0)
-        {
-            std::cout << "Please provide an AppId argument before launching the app." << std::endl;
-            return true;
-        }
-
-        std::cout << "Launching app with Steam. Make sure you have xdg-open installed." << std::endl;
-        system(("xdg-open steam://run/" + std::to_string(app)).c_str());
         return true;
     }
 

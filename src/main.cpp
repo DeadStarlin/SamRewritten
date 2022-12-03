@@ -14,7 +14,6 @@
 
 #include <iostream>
 #include <sys/stat.h>
-#include <gtkmm-3.0/gtkmm/application.h>
 
 /**************************************
  *  Declare global variables imported from globals.h
@@ -45,17 +44,17 @@ main(int argc, char *argv[])
     // Note that a rewriting should be done to further separate the GUI
     // from a command-line interface
     if(!go_cli_mode(argc, argv, &initial_app_id)) {
-        auto app = Gtk::Application::create(argc, argv);
-        MainPickerWindow* main_gui = MainPickerWindowFactory::create(initial_app_id);
+        // auto app = Gtk::Application::create(argc, argv);
+        // MainPickerWindow* main_gui = MainPickerWindowFactory::create(initial_app_id);
 
         // Clear commandline parameters, otherwise this errors out with "Unknown option <parameter>"
         // Constructors declarations in the gtkmm libraries have some links to bug reports about
         // needing argc, argv...
-        if (argc > 1) {
-            argv[1] = NULL;
-        }
-        argc = 1;
-        app->run(*main_gui);
+        // if (argc > 1) {
+        //     argv[1] = NULL;
+        // }
+        // argc = 1;
+        // app->run(*main_gui);
     }
 
     return EXIT_SUCCESS;
