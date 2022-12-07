@@ -285,6 +285,10 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
     }
 
     if (result.count("lock") > 0 || result.count("unlock") > 0) {
+        g_steam->launch_app(app);
+        g_steam->refresh_achievements_and_stats();
+        //g_steam->get_achievements();
+        //g_steam->get_stats();
         if (result.count("timed") > 0) {
             // Hook this up since we'll probably be in this function for a while
             // Really we could hook this up whenever we launch the app...
@@ -356,7 +360,6 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
                 }
             }
 
-            g_steam->launch_app(app);
             if (show_timestamp)
                     std::cout << current_time_as_string();
             std::vector<uint64_t> times = g_steam->setup_timed_modifications(time, spacing, order);
@@ -374,7 +377,6 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
             g_steam->quit_game();
             return true;
         } else {
-            g_steam->launch_app(app);
             g_steam->commit_changes();
             g_steam->quit_game();
             return true;
