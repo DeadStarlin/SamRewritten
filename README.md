@@ -96,6 +96,7 @@ Usage:
                              	or 'no'/'n' to only filter protected or not protected ones.
 				Default is all.
       --nostats              	Do not displays stats after achievements.
+	  --splits					Splits results with vertical lines.
       --unlock arg           	Unlock achievements for an AppId. Separate
                              	achievement names by a comma.
       --lock arg             	Lock achievements for an AppId. Separate

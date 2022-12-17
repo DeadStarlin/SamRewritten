@@ -74,7 +74,8 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
         ("statvalues", "Change stats for an AppId. Separate stat values by a comma. Use with statnames to name the values in order", cxxopts::value<std::vector<std::string>>())
         ("p,launch_achievements", "Launch SamRewritten GUI and immediately switch to achievements page for the app.") // This is used by the GUI for launching in a new window
         ("nostats", "Do not display stats")
-        ("timestamps", "Display timestamps on time related information");
+        ("timestamps", "Display timestamps on time related information")
+        ("splits", "Split results with vertical line");
 
     options.parse_positional({"app"});
 
@@ -176,7 +177,10 @@ bool go_cli_mode(int argc, char* argv[], AppId_t *return_app_id) {
         }
 
         std::cout << "ACHIEVEMENTS" << std::endl;
-        TextTable t(' ');
+        char splitter = ' ';
+        if (result.count("splits") > 0)
+            splitter = '|';
+        TextTable t(splitter);
         t.add("API Name");
         t.add("Name");
         t.add("Description");
